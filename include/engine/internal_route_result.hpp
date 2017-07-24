@@ -25,8 +25,12 @@ struct PathData
     unsigned name_id;
     // weight that is traveled on the segment until the turn is reached
     EdgeWeight weight_until_turn;
-    // duration that is traveled on the segment until the turn is reached
+    // duration that is traveled on the segment until the turn is reached,
+    // including a turn if the segment preceeds one.
     EdgeWeight duration_until_turn;
+    // If this segment immediately preceeds a turn, then duration_of_turn
+    // will contain the duration of the turn.  Otherwise it will be 0.
+    EdgeWeight duration_of_turn;
     // instruction to execute at the turn
     extractor::guidance::TurnInstruction turn_instruction;
     // turn lane data
