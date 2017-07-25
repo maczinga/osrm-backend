@@ -539,7 +539,7 @@ Annotation of the whole route leg with fine-grained information about each segme
 **Properties**
 
 - `distance`: The distance, in metres, between each pair of coordinates
-- `duration`: The duration between each pair of coordinates, in seconds
+- `duration`: The duration between each pair of coordinates, in seconds.  Does not include the duration of any turns.
 - `datasources`: The index of the datasource for the speed between each pair of coordinates. `0` is the default profile, other values are supplied via `--segment-speed-file` to `osrm-contract`
 - `nodes`: The OSM node ID for each coordinate along the route, excluding the first/last user-supplied coordinates
 - `weight`: The weights between each pair of coordinates
