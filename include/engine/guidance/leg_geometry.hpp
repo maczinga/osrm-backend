@@ -39,18 +39,12 @@ struct LegGeometry
     {
         double distance; // distance in meters
 
-        // Total duration of a segment, in seconds, including
+        // Total duration of a segment, in seconds, NOT including
         // the turn penalty if the segment preceeds a turn
         double duration;
         double weight; // weight value, including the turn weight
 
         DatasourceID datasource;
-
-        // If this segment immediately preceeds a turn, this value will
-        // be the duration of the turn.  It will be 0 for not-at-turn
-        // segments.  This value can be subtracted from `duration`
-        // to get the duration of the segment without the turn
-        double turn_duration;
     };
     std::vector<Annotation> annotations;
 

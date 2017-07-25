@@ -78,12 +78,11 @@ inline LegGeometry assembleGeometry(const datafacade::BaseDataFacade &facade,
         }
 
         prev_coordinate = coordinate;
-        geometry.annotations.emplace_back(
-            LegGeometry::Annotation{current_distance,
-                                    path_point.duration_until_turn / 10.,
-                                    path_point.weight_until_turn / facade.GetWeightMultiplier(),
-                                    path_point.datasource_id,
-                                    path_point.duration_of_turn / 10.});
+        geometry.annotations.emplace_back(LegGeometry::Annotation{
+            current_distance,
+            (path_point.duration_until_turn - path_point.duration_of_turn) / 10.,
+            path_point.weight_until_turn / facade.GetWeightMultiplier(),
+            path_point.datasource_id});
         geometry.locations.push_back(std::move(coordinate));
         geometry.osm_node_ids.push_back(facade.GetOSMNodeIDOfNode(path_point.turn_via_node));
     }
@@ -107,8 +106,7 @@ inline LegGeometry assembleGeometry(const datafacade::BaseDataFacade &facade,
         (reversed_target ? target_node.reverse_duration : target_node.forward_duration) / 10.,
         (reversed_target ? target_node.reverse_weight : target_node.forward_weight) /
             facade.GetWeightMultiplier(),
-        forward_datasources[target_node.fwd_segment_position],
-        0}); // End of the route has no turn penalty
+        forward_datasources[target_node.fwd_segment_position]});
 
     geometry.segment_offsets.push_back(geometry.locations.size());
     geometry.locations.push_back(target_node.location);
